@@ -12,7 +12,5 @@ namespace Lexicon_personalregister
             // Call the method to display all PersonellRegistry objects in the list
             personellRegistry.DisplayPersonellRegistries(new List<PersonellRegistry>());
         }
-        // method that collects information
-
     }
 }
