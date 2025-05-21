@@ -33,24 +33,14 @@ namespace Lexicon_personalregister
             // prompt user for input and run some checks on the input data to make sure it is valid
             Console.WriteLine("Enter name:");
             string name = Console.ReadLine();
-            // TODO: Move all input validation to a separate method for better readability and maintainability
-            // check if name is empty or null
-            while (string.IsNullOrEmpty(name))
-            {
-                Console.WriteLine("Name cannot be empty. Please enter a valid name:");
-                name = Console.ReadLine();
-            }
+            // run validateName method to check if name is valid
+            name = ValidateName(name);
 
             Console.WriteLine("Enter wage:");
             // ask user for input for wage, and run check to verify it is a number
             string wageInput = Console.ReadLine();
-            int wage;
-            // check if wage is a number and run some checks on the input data to make sure it is valid
-            while (!int.TryParse(wageInput, out wage) || wage < 0)
-            {
-                Console.WriteLine("Wage must be a positive number. Please enter a valid wage:");
-                wageInput = Console.ReadLine();
-            }
+            // run validateWage method to check if wage is valid
+            int wage = ValidateWage(wageInput);
 
             // create a new PersonellRegistry object and add it to the list
             PersonellRegistry personellRegistry = new PersonellRegistry(name, wage);
@@ -70,8 +60,14 @@ namespace Lexicon_personalregister
             {
                 Console.WriteLine("Enter name:");
                 name = Console.ReadLine();
+                // run validateName method to check if name is valid
+                name = ValidateName(name);
                 Console.WriteLine("Enter wage:");
-                wage = int.Parse(Console.ReadLine());
+                // ask user for input for wage, and run check to verify it is a number
+                wageInput = Console.ReadLine();
+                // run validateWage method to check if wage is valid
+                wage = ValidateWage(wageInput);
+
                 personellRegistry = new PersonellRegistry(name, wage);
                 personellRegistries.Add(personellRegistry);
                 Console.WriteLine("Do you want to add more registries? (yes/no)");
@@ -92,8 +88,32 @@ namespace Lexicon_personalregister
                 DisplayPersonellRegistries(personellRegistries);
             }
         }
+
+        // method that handles input validation for the name property
+        public string ValidateName(string name)
+        {
+            // check if name is empty or null or a not alphabethical string
+            while (string.IsNullOrEmpty(name) || !name.All(char.IsLetter))
+            {
+                Console.WriteLine("Name must be a non-empty alphabetical string. Please enter a valid name:");
+                name = Console.ReadLine();
+            }
+            return name;
+        }
+        // method that handles input validation for the wage property
+        // it checks if it is an integer and if it is a positive number
+        public int ValidateWage(string wageInput)
+        {
+            int wage;
+            // check if wage is a number and run some checks on the input data to make sure it is valid
+            while (!int.TryParse(wageInput, out wage) || wage < 0)
+            {
+                Console.WriteLine("Wage must be a number and larger than 0:");
+                wageInput = Console.ReadLine();
+            }
+            return wage;
+        }
         // method that displays all PersonellRegistry objects in the list
-        // TODO figure out why the Console.WriteLine Personell Registries is outputted twice at end of program
         public void DisplayPersonellRegistries(List<PersonellRegistry> personellRegistries)
         {
             Console.WriteLine("Personell Registries:");
