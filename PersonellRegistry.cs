@@ -25,6 +25,8 @@ namespace Lexicon_personalregister
         }
         // overloaded constructor method that appends newly created PersonellRegistry objects to the list and prompts user for more input and displays the list and ends the program
         // TODO break this method into smaller methods for better readability and maintainability
+        // TODO make sure you can add the same name twice without overwriting the first one
+        // TODO using IO/filesystem save the list to a file and read it back in when the program starts
         public void AddPersonellRegistry()
         {
             // create a list to hold PersonellRegistry objects
@@ -84,12 +86,14 @@ namespace Lexicon_personalregister
                 DisplayPersonellRegistries(personellRegistries);
             }
             else {
+                // TODO add logic for handling answers that are other than yes or no
                 // display current list items
                 DisplayPersonellRegistries(personellRegistries);
             }
         }
 
         // method that handles input validation for the name property
+        // TODO: improve logic to handle sur and last names, right now it requires a single 
         public string ValidateName(string name)
         {
             // check if name is empty or null or a not alphabethical string
@@ -102,6 +106,7 @@ namespace Lexicon_personalregister
         }
         // method that handles input validation for the wage property
         // it checks if it is an integer and if it is a positive number
+        // TODO error handle why 0 is still allowed as input
         public int ValidateWage(string wageInput)
         {
             int wage;
